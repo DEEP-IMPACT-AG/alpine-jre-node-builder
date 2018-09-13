@@ -38,7 +38,7 @@ ENV GIT_LFS_VERSION 2.4.2
 
 # Install base packages
 RUN apk update && \
-    apk add curl docker git libelf openjdk8="$JAVA_ALPINE_VERSION" openssh python2 py2-pip sudo make g++
+    apk add curl docker git libelf openssh python2 py2-pip sudo make g++
 
 # Enable wheel group entry
 RUN sed -e 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/g' -i /etc/sudoers
