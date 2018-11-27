@@ -45,15 +45,15 @@ ENV GIT_LFS_VERSION 2.4.2
 
 # Install base packages
 RUN apk update && \
-    apk add --no-cache curl docker git git-lfs libelf openssh python2 py2-pip sudo make g++
+    apk add --no-cache curl docker git git-lfs libelf openssh python2 py2-pip sudo make g++ jq
 
 # Enable wheel group entry
 RUN sed -e 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/g' -i /etc/sudoers
 
-# Add user `testrunner`
-RUN adduser -D testrunner && \
-    echo "testrunner:testrunner" | chpasswd && \
-    sed -e 's/^wheel:\(.*\)/wheel:\1,testrunner/g' -i /etc/group
+# Add user `bmo`
+RUN adduser -D bmo && \
+    echo "bmo:bmo" | chpasswd && \
+    sed -e 's/^wheel:\(.*\)/wheel:\1,bmo/g' -i /etc/group
 
 # awscli
 RUN pip install --no-cache-dir --upgrade pip && \
@@ -62,15 +62,15 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Install Leiningen
 RUN curl --silent https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein > /usr/local/bin/lein && \
     chmod +x /usr/local/bin/lein && \
-    su testrunner -c "lein"
+    su bmo -c "lein"
 
 # Install Clojure Tooling
 RUN curl -s https://download.clojure.org/install/linux-install-1.9.0.397.sh | bash \
- && su testrunner -c "clojure -e 1"
+ && su bmo -c "clojure -e 1"
 
 # Install yarn
 RUN npm install -g yarn
 
 # Start as a non-root user
-USER testrunner
+USER bmo
 
