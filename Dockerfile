@@ -1,4 +1,4 @@
-FROM deepimpact/alpine-jre-node:1.0.2
+FROM deepimpact/alpine-jre-node:1.0.10
 
 # Taken directly from `https://github.com/frol/docker-alpine-glibc`
 # Alpine is based on musl, and this enables some software packages 
@@ -45,7 +45,7 @@ ENV GIT_LFS_VERSION 2.4.2
 
 # Install base packages
 RUN apk update && \
-    apk add curl docker git libelf openssh python2 py2-pip sudo make g++
+    apk add curl docker git openssh python2 py2-pip sudo make g++
 
 # Enable wheel group entry
 RUN sed -e 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/g' -i /etc/sudoers
@@ -68,7 +68,7 @@ RUN pip install --upgrade pip && \
     pip install awscli
 
 # Install Leiningen
-RUN curl --silent https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein > /usr/local/bin/lein && \
+RUN curl --silent https://raw.githubusercontent.com/technomancy/leiningen/2.9.1/bin/lein > /usr/local/bin/lein && \
     chmod +x /usr/local/bin/lein && \
     su bmo -c "lein"
 
