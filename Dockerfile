@@ -68,9 +68,6 @@ RUN curl --silent https://raw.githubusercontent.com/technomancy/leiningen/2.9.1/
 RUN curl -s https://download.clojure.org/install/linux-install-1.9.0.397.sh | bash \
  && su bmo -c "clojure -e 1"
 
-# Install yarn
-RUN npm install -g yarn
-
 # Start as a non-root user
 USER bmo
 
